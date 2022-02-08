@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Habit</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="menu_habits">Мои привычки</string>
+    <string name="menu_about_app">О приложении</string>
+    <string name="action_sort">Сортировать</string>
+    <string name="menu_add_habit">Добавить привычку</string>
+    <string name="tab_good_habit">Хорошие</string>
+    <string name="tab_bad_habit">Плохие</string>
+    <string name="hello_blank_fragment">Hello</string>
+</resources>
