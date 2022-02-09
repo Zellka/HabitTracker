@@ -18,6 +18,12 @@
     <string name="type_good">Хорошая</string>
     <string name="input_count">Количество</string>
     <string name="input_frequency">Периодичность</string>
+    <string name="sort_date">по дате</string>
+    <string name="sort_priority">по приоритету</string>
+    <string name="sort_name">по названию</string>
+    <string name="title_sort">Сортировать:</string>
+    <string name="hint_search">Найти</string>
+    <string name="btn_ok">Ок</string>
     <string-array name="priorities">
         <item>Низкий</item>
         <item>Средний</item>
