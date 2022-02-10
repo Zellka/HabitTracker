@@ -1,4 +1,4 @@
-package com.example.habit.habits
+package com.example.habit.ui.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.example.habit.databinding.FragmentFilterBinding
+import com.example.habit.ui.viewmodel.HabitsViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class FilterFragment : BottomSheetDialogFragment() {

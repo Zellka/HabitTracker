@@ -1,4 +1,4 @@
-package com.example.habit.addhabit
+package com.example.habit.ui.view
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.habit.R
+import com.example.habit.ui.viewmodel.AddHabitViewModel
 import com.example.habit.databinding.FragmentAddHabitBinding
 
 class AddHabitFragment : Fragment() {

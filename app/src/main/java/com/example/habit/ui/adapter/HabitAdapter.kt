@@ -1,6 +1,5 @@
-package com.example.habit.adapter
+package com.example.habit.ui.adapter
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -29,7 +28,7 @@ class HabitAdapter :
         fun bind(habit: Habit) {
             binding.titleHabit.text = habit.title
             binding.descriptionHabit.text = habit.description
-            binding.icHabit.setBackgroundColor(habit.color.toInt())
+            habit.color?.let { binding.icHabit.setBackgroundColor(it.toInt()) }
         }
     }
 

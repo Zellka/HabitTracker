@@ -1,11 +1,11 @@
-package com.example.habit.habits
+package com.example.habit.ui.view
 
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.habit.R
-import com.example.habit.adapter.PagerAdapter
+import com.example.habit.ui.adapter.PagerAdapter
 import com.example.habit.databinding.FragmentAllHabitsBinding
 
 class AllHabitsFragment : Fragment() {
