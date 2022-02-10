@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.habit.data.model.Habit
 import com.example.habit.databinding.ItemHabitBinding
 
-class HabitAdapter :
+class HabitAdapter(private var listener: (Habit) -> Unit) :
     RecyclerView.Adapter<HabitAdapter.HabitHolder>() {
 
     private val habits = mutableListOf<Habit>()
@@ -14,7 +14,12 @@ class HabitAdapter :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HabitAdapter.HabitHolder {
         val binding =
             ItemHabitBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return HabitHolder(binding)
+        val viewHolder = HabitHolder(binding)
+        viewHolder.itemView.setOnClickListener {
+            if (viewHolder.adapterPosition != RecyclerView.NO_POSITION)
+                listener(habits[viewHolder.adapterPosition])
+        }
+        return viewHolder
     }
 
     override fun onBindViewHolder(holder: HabitAdapter.HabitHolder, position: Int) {
@@ -36,5 +41,11 @@ class HabitAdapter :
         habits.clear()
         habits.addAll(newData)
         notifyDataSetChanged()
+    }
+
+    fun removeItem(position: Int) {
+        habits.removeAt(position)
+        notifyItemRemoved(position)
+        notifyItemRangeChanged(position, habits.size)
     }
 }

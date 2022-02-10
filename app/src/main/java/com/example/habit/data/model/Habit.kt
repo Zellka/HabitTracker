@@ -1,17 +1,21 @@
 package com.example.habit.data.model
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class Habit(
-    val color: Long,
+    val color: Long?,
     val count: Int,
-    val date: Int,
+    val date: Long,
     val description: String,
-    val done_dates: Array<Int>,
+    val done_dates: Array<Long>,
     val frequency: Int,
     val priority: Int,
     val title: String,
     val type: Int,
-    val uid: String,
-)
+    val uid: String?,
+):Parcelable
 
 enum class Priority(val value: Int) {
     LOW(0),

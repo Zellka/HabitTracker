@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_margin="10dp"
     android:paddingTop="?actionBarSize"
-    tools:context=".ui.view.HabitFragment">
+    tools:context=".ui.view.HabitsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_habits"

@@ -5,8 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import com.example.habit.data.api.ApiHelper
+import com.example.habit.data.api.RetrofitBuilder
 import com.example.habit.databinding.FragmentFilterBinding
 import com.example.habit.ui.viewmodel.HabitsViewModel
+import com.example.habit.ui.viewmodel.ViewModelFactory
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class FilterFragment : BottomSheetDialogFragment() {
@@ -20,7 +23,10 @@ class FilterFragment : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View {
         habitsViewModel =
-            ViewModelProvider(this)[HabitsViewModel::class.java]
+            ViewModelProvider(
+                this,
+                ViewModelFactory(ApiHelper(RetrofitBuilder.apiService))
+            )[HabitsViewModel::class.java]
         _binding = FragmentFilterBinding.inflate(inflater, container, false)
         return binding.root
     }
