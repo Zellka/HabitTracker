@@ -8,23 +8,14 @@ import retrofit2.http.*
 interface ApiService {
 
     @GET("habit")
-    suspend fun getHabits(@Header("Authorization") token: String = "token"): List<Habit>
+    suspend fun getHabits(): List<Habit>
 
     @PUT("habit")
-    suspend fun putHabit(
-        @Body habit: Habit,
-        @Header("Authorization") token: String = "token"
-    ): HabitUID
+    suspend fun putHabit(@Body habit: Habit): HabitUID
 
     @HTTP(method = "DELETE", path = "habit", hasBody = true)
-    suspend fun deleteHabit(
-        @Body habit: HabitUID,
-        @Header("Authorization") token: String = "token"
-    )
+    suspend fun deleteHabit(@Body habit: HabitUID)
 
     @POST("habit_done")
-    suspend fun postHabitDone(
-        @Body habit: HabitDone,
-        @Header("Authorization") token: String = "token"
-    )
+    suspend fun postHabitDone(@Body habit: HabitDone)
 }
