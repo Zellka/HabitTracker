@@ -26,6 +26,9 @@
     <string name="btn_ok">Ок</string>
     <string name="title_about_app">Тестовое задание для Doubletapp</string>
     <string name="subtitle_about_app">Разработано Зелинской Илоной</string>
+    <string name="btn_add_color">Добавить цвет</string>
+    <string name="btn_choose">Выбрать</string>
+    <string name="btn_cancel">Отмена</string>
     <string-array name="priorities">
         <item>Низкий</item>
         <item>Средний</item>

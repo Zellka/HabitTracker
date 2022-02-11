@@ -1,5 +1,6 @@
 package com.example.habit.ui.view
 
+import android.graphics.Color
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -18,9 +19,9 @@ import com.example.habit.data.model.Habit
 import com.example.habit.ui.viewmodel.AddHabitViewModel
 import com.example.habit.databinding.FragmentAddHabitBinding
 import com.example.habit.ui.viewmodel.AddHabitViewModelFactory
-import com.example.habit.ui.viewmodel.HabitsViewModel
-import com.example.habit.ui.viewmodel.ViewModelFactory
 import com.example.habit.utils.Status
+import top.defaults.colorpicker.ColorPickerPopup
+import top.defaults.colorpicker.ColorPickerPopup.ColorPickerObserver
 import java.util.*
 
 class AddHabitFragment : Fragment() {
@@ -56,8 +57,10 @@ class AddHabitFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         var uidHabit: String? = null
+        var habitColor = Color.RED
         if (habit != null) {
             uidHabit = habit?.uid
+            habitColor = habit?.color!!
             binding.editName.setText(habit?.title)
             binding.editDescription.setText(habit?.description)
             binding.editCount.setText(habit?.count.toString())
@@ -69,10 +72,27 @@ class AddHabitFragment : Fragment() {
                 binding.typeBad.isChecked = true
 
         }
+        binding.btnColor.setOnClickListener {
+            ColorPickerPopup.Builder(this.requireContext())
+                .initialColor(habitColor)
+                .enableBrightness(true)
+                .enableAlpha(true)
+                .okTitle(resources.getString(R.string.btn_choose))
+                .cancelTitle(resources.getString(R.string.btn_cancel))
+                .showIndicator(true)
+                .showValue(true)
+                .build()
+                .show(object : ColorPickerObserver() {
+                    override fun onColorPicked(color: Int) {
+                        habitColor = color
+                    }
+                    fun onColor(color: Int, fromUser: Boolean) {}
+                })
+        }
 
         binding.btnOk.setOnClickListener {
             val habit = Habit(
-                0xFF1F51B5,
+                habitColor,
                 binding.editCount.text.toString().toInt(),
                 Calendar.getInstance().time.time,
                 binding.editDescription.text.toString(),
@@ -145,4 +165,5 @@ class AddHabitFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
 }

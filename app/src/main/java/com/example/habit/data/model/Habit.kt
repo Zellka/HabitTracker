@@ -5,7 +5,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Habit(
-    val color: Long?,
+    val color: Int?,
     val count: Int,
     val date: Long,
     val description: String,

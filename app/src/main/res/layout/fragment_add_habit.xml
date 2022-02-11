@@ -135,10 +135,18 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_color"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_add_color"
+        app:layout_constraintTop_toBottomOf="@+id/input_frequency" />
+
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_ok"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/btn_ok"
-        app:layout_constraintTop_toBottomOf="@+id/input_frequency" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_color" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
