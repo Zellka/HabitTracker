@@ -24,6 +24,8 @@
     <string name="title_sort">Сортировать:</string>
     <string name="hint_search">Найти</string>
     <string name="btn_ok">Ок</string>
+    <string name="title_about_app">Тестовое задание для Doubletapp</string>
+    <string name="subtitle_about_app">Разработано Зелинской Илоной</string>
     <string-array name="priorities">
         <item>Низкий</item>
         <item>Средний</item>
