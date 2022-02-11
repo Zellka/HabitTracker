@@ -28,7 +28,7 @@ ext {
     okhttpVersion = '3.12.0'
     coroutinesVersion = '1.5.0'
     roomVersion = '2.4.1'
-    picassoVersion = '2.71828'
+    glideVersion = '4.13.0'
 }
 
 task clean(type: Delete) {
