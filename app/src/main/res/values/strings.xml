@@ -29,6 +29,7 @@
     <string name="btn_add_color">Добавить цвет</string>
     <string name="btn_choose">Выбрать</string>
     <string name="btn_cancel">Отмена</string>
+    <string name="btn_clear">Очистить</string>
     <string-array name="priorities">
         <item>Низкий</item>
         <item>Средний</item>

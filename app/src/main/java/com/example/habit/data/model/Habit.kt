@@ -17,6 +17,12 @@ data class Habit(
     val uid: String?,
 ):Parcelable
 
+enum class Sort(val value: Boolean) {
+    DATE(false),
+    PRIORITY(false),
+    NAME(false)
+}
+
 enum class Priority(val value: Int) {
     LOW(0),
     MEDIUM(1),

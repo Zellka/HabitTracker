@@ -54,7 +54,7 @@ class HabitsFragment : Fragment() {
     ): View {
         habitsViewModel =
             ViewModelProvider(
-                this,
+                requireActivity(),
                 ViewModelFactory(ApiHelper(RetrofitBuilder.apiService))
             )[HabitsViewModel::class.java]
         _binding = FragmentHabitsBinding.inflate(inflater, container, false)
@@ -72,30 +72,23 @@ class HabitsFragment : Fragment() {
     }
 
     private fun getHabits() {
-        habitsViewModel.getHabits()
-            .observe(this.viewLifecycleOwner, Observer {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            binding.rvHabits.visibility = View.VISIBLE
-                            //binding.progressBar.visibility = View.GONE
-                            resource.data?.let { habits -> setHabits(habits) }
-                        }
-                        Status.ERROR -> {
-                            //binding.progressBar.visibility = View.GONE
-                            Toast.makeText(
-                                this.requireContext(),
-                                resource.message,
-                                Toast.LENGTH_LONG
-                            ).show()
-                        }
-                        Status.LOADING -> {
-                            //binding.progressBar.visibility = View.VISIBLE
-                            binding.rvHabits.visibility = View.GONE
-                        }
-                    }
-                }
-            })
+        habitsViewModel.habitsList.observe(this,
+            { o -> setHabits(o) })
+
+        habitsViewModel.errorMessage.observe(this, {
+            Toast.makeText(this.requireContext(), it, Toast.LENGTH_SHORT).show()
+        })
+
+        habitsViewModel.loading.observe(this, Observer {
+            if (it) {
+                Toast.makeText(this.requireContext(), "Загрузка", Toast.LENGTH_SHORT).show()
+                // binding.progressDialog.visibility = View.VISIBLE
+            } else {
+                //binding.progressDialog.visibility = View.GONE
+            }
+        })
+        habitsViewModel.getAllHabits()
+
     }
 
     private fun doneHabit(habit: Habit) {

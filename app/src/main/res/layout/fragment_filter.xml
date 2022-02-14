@@ -10,11 +10,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/search_view"
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:queryHint="@string/hint_search"
+            android:hint="@string/hint_search"
             tools:ignore="MissingConstraints" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/title_sort"
-            app:layout_constraintTop_toBottomOf="@+id/search_view" />
+            app:layout_constraintTop_toBottomOf="@+id/search" />
 
         <RadioGroup
             android:id="@+id/sort"
@@ -57,6 +57,13 @@
             android:layout_height="wrap_content"
             android:text="@string/btn_ok"
             app:layout_constraintTop_toBottomOf="@+id/sort" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_clear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_clear"
+            app:layout_constraintTop_toBottomOf="@+id/btn_ok" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

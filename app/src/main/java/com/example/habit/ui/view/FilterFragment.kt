@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.example.habit.data.api.ApiHelper
 import com.example.habit.data.api.RetrofitBuilder
+import com.example.habit.data.model.Sort
 import com.example.habit.databinding.FragmentFilterBinding
 import com.example.habit.ui.viewmodel.HabitsViewModel
 import com.example.habit.ui.viewmodel.ViewModelFactory
@@ -24,11 +25,39 @@ class FilterFragment : BottomSheetDialogFragment() {
     ): View {
         habitsViewModel =
             ViewModelProvider(
-                this,
+                requireActivity(),
                 ViewModelFactory(ApiHelper(RetrofitBuilder.apiService))
             )[HabitsViewModel::class.java]
         _binding = FragmentFilterBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.btnOk.setOnClickListener {
+            if (binding.search.text?.isNotEmpty() == true) {
+                habitsViewModel.setFilterHabitList(binding.search.text.toString())
+                setSortList()
+            }
+            setSortList()
+            this.dismiss()
+        }
+        binding.btnClear.setOnClickListener {
+            habitsViewModel.setNoFilter()
+            this.dismiss()
+        }
+    }
+
+    private fun setSortList() {
+        if (binding.sortName.isChecked) {
+            habitsViewModel.setSortHabitList(Sort.NAME)
+        }
+        if (binding.sortDate.isChecked) {
+            habitsViewModel.setSortHabitList(Sort.DATE)
+        }
+        if (binding.sortPriority.isChecked) {
+            habitsViewModel.setSortHabitList(Sort.PRIORITY)
+        }
     }
 
     override fun onDestroyView() {

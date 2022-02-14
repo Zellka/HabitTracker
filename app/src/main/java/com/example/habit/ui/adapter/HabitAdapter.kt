@@ -9,7 +9,7 @@ import com.example.habit.databinding.ItemHabitBinding
 class HabitAdapter(private var listener: (Habit) -> Unit) :
     RecyclerView.Adapter<HabitAdapter.HabitHolder>() {
 
-    private val habits = mutableListOf<Habit>()
+    private var habits = mutableListOf<Habit>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HabitAdapter.HabitHolder {
         val binding =

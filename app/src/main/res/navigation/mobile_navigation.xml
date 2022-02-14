@@ -13,6 +13,19 @@
         <action
             android:id="@+id/action_habitsFragment_to_addHabitFragment"
             app:destination="@id/nav_add_habit" />
+        <action
+            android:id="@+id/action_habitsFragment_to_filterFragment"
+            app:destination="@id/nav_filter" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_filter"
+        android:name="com.example.habit.ui.view.FilterFragment"
+        android:label="@string/title_sort"
+        tools:layout="@layout/fragment_filter">
+        <action
+            android:id="@+id/action_filterFragment_to_habitsFragment"
+            app:destination="@id/nav_habits" />
     </fragment>
 
     <fragment
