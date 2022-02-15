@@ -1,6 +1,5 @@
 package com.example.habit.data.api
 
-import com.example.habit.data.model.Habit
 import com.example.habit.data.model.HabitDone
 import com.example.habit.data.model.HabitPut
 import com.example.habit.data.model.HabitUID

@@ -23,19 +23,18 @@ class HabitsViewModel(
     private val filterList = MutableLiveData<List<Habit>>()
     val errorMessage = MutableLiveData<String>()
     private var job: Job? = null
-    val loading = MutableLiveData<Boolean>()
 
     fun getHabitsFromApi() {
         job = CoroutineScope(Dispatchers.IO).launch {
             val response = repository.getHabits()
             if (response.body()?.isNotEmpty() == true) {
+                repository.deleteHabitsFromDB()
                 repository.insertHabitsToDB(response.body()!!)
             }
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
                     habitsList.postValue(response.body())
                     filterList.postValue(response.body())
-                    loading.value = false
                 } else {
                     onError("Error : ${response.message()} ")
                 }
@@ -50,7 +49,6 @@ class HabitsViewModel(
                 if (response.isNotEmpty()) {
                     habitsList.postValue(response)
                     filterList.postValue(response)
-                    loading.value = false
                 } else {
                     onError("Нет данных")
                 }
@@ -82,7 +80,6 @@ class HabitsViewModel(
 
     private fun onError(message: String) {
         errorMessage.value = message
-        loading.value = false
     }
 
     fun deleteHabit(habit: HabitUID) = liveData(Dispatchers.IO) {

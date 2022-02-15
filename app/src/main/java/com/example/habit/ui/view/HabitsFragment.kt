@@ -23,11 +23,11 @@ import com.example.habit.ui.adapter.HabitAdapter
 import com.example.habit.data.model.Habit
 import com.example.habit.data.model.HabitDone
 import com.example.habit.data.model.HabitUID
+import com.example.habit.data.model.Status
 import com.example.habit.databinding.FragmentHabitsBinding
 import com.example.habit.ui.viewmodel.HabitsViewModel
 import com.example.habit.ui.viewmodel.ViewModelFactory
 import com.example.habit.utils.Network
-import com.example.habit.utils.Status
 import kotlinx.android.synthetic.main.fragment_filter.*
 import java.util.*
 
@@ -88,20 +88,10 @@ class HabitsFragment : Fragment() {
         habitsViewModel.errorMessage.observe(this, {
             Toast.makeText(this.requireContext(), it, Toast.LENGTH_SHORT).show()
         })
-
-        habitsViewModel.loading.observe(this, Observer {
-            if (it) {
-                Toast.makeText(this.requireContext(), "Загрузка", Toast.LENGTH_SHORT).show()
-                // binding.progressDialog.visibility = View.VISIBLE
-            } else {
-                //binding.progressDialog.visibility = View.GONE
-            }
-        })
-
     }
 
     private fun doneHabit(habit: Habit) {
-        habit.uid?.let { HabitDone(Calendar.getInstance().time.time, it) }?.let { it ->
+        HabitDone(Calendar.getInstance().time.time, habit.uid).let { it ->
             habitsViewModel.postHabitDone(it)
                 .observe(this.viewLifecycleOwner, Observer {
                     it?.let { resource ->
@@ -120,38 +110,6 @@ class HabitsFragment : Fragment() {
                                     Toast.LENGTH_LONG
                                 ).show()
                             }
-                            Status.LOADING -> {
-                            }
-                        }
-                    }
-                })
-        }
-    }
-
-    private fun deleteHabit(habit: HabitUID) {
-        if (view?.parent != null) {
-            habitsViewModel.deleteHabit(habit)
-                .observe(this.viewLifecycleOwner, Observer {
-                    it?.let { resource ->
-                        when (resource.status) {
-                            Status.SUCCESS -> {
-                                Toast.makeText(
-                                    this.requireContext(),
-                                    "Удалено",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                            }
-                            Status.ERROR -> {
-                                //binding.progressBar.visibility = View.GONE
-                                Toast.makeText(
-                                    this.requireContext(),
-                                    resource.message,
-                                    Toast.LENGTH_LONG
-                                ).show()
-                            }
-                            Status.LOADING -> {
-                                //binding.progressBar.visibility = View.VISIBLE
-                            }
                         }
                     }
                 })
@@ -163,22 +121,43 @@ class HabitsFragment : Fragment() {
         adapter.apply {
             setData(sortList)
             habitList = sortList
-            notifyDataSetChanged()
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.menu_sort, menu)
+
+    private fun addEditHabit(habit: Habit) {
+        val bundle = bundleOf(HABIT to habit)
+        findNavController().navigate(
+            R.id.action_habitsFragment_to_addHabitFragment,
+            bundle
+        )
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val id = item.itemId
-        if (id == R.id.action_sort) {
-            val filterFragment = FilterFragment()
-            filterFragment.show(this.childFragmentManager, "Dialog")
+    private fun deleteHabit(position: Int) {
+        if (view?.parent != null) {
+            habitsViewModel.deleteHabit(HabitUID(habitList[position].uid))
+                .observe(this.viewLifecycleOwner, Observer {
+                    it?.let { resource ->
+                        when (resource.status) {
+                            Status.SUCCESS -> {
+                                Toast.makeText(
+                                    this.requireContext(),
+                                    "Удалено",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
+                            Status.ERROR -> {
+                                Toast.makeText(
+                                    this.requireContext(),
+                                    resource.message,
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
+                        }
+                    }
+                })
         }
-        return super.onOptionsItemSelected(item)
+        adapter.removeItem(position)
     }
 
     private fun setupSwipe() {
@@ -196,14 +175,9 @@ class HabitsFragment : Fragment() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val position = viewHolder.adapterPosition
                 if (direction == ItemTouchHelper.LEFT) {
-                    habitList[position].uid?.let { HabitUID(it) }?.let { deleteHabit(it) }
-                    adapter.removeItem(position)
+                    deleteHabit(position)
                 } else {
-                    val bundle = bundleOf("HABIT" to habitList[position])
-                    findNavController().navigate(
-                        R.id.action_habitsFragment_to_addHabitFragment,
-                        bundle
-                    )
+                    addEditHabit(habitList[position])
                 }
             }
 
@@ -281,6 +255,20 @@ class HabitsFragment : Fragment() {
         itemTouchHelper.attachToRecyclerView(binding.rvHabits)
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_sort, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+        if (id == R.id.action_sort) {
+            val filterFragment = FilterFragment()
+            filterFragment.show(this.childFragmentManager, DIALOG_TAG)
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -288,6 +276,8 @@ class HabitsFragment : Fragment() {
 
     companion object {
         const val POSITION = "position"
+        const val HABIT = "HABIT"
+        const val DIALOG_TAG = "Dialog"
 
         @JvmStatic
         fun newInstance(position: Int) =
