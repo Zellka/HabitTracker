@@ -4,7 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.liveData
 import com.example.habit.data.api.ApiHelper
+import com.example.habit.data.db.DatabaseHelper
 import com.example.habit.data.model.Habit
+import com.example.habit.data.model.HabitPut
 import com.example.habit.data.repository.HabitRepository
 import com.example.habit.utils.Resource
 import kotlinx.coroutines.Dispatchers
@@ -13,7 +15,7 @@ class AddHabitViewModel(
     private val repository: HabitRepository
 ) : ViewModel() {
 
-    fun putHabit(habit: Habit) = liveData(Dispatchers.IO) {
+    fun putHabit(habit: HabitPut) = liveData(Dispatchers.IO) {
         emit(Resource.loading(data = null))
         try {
             emit(Resource.success(data = repository.putHabit(habit)))
@@ -23,12 +25,12 @@ class AddHabitViewModel(
     }
 }
 
-class AddHabitViewModelFactory(private val apiHelper: ApiHelper) :
+class AddHabitViewModelFactory(private val apiHelper: ApiHelper, private val dbHelper: DatabaseHelper) :
     ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(AddHabitViewModel::class.java)) {
-            return AddHabitViewModel(HabitRepository(apiHelper)) as T
+            return AddHabitViewModel(HabitRepository(apiHelper, dbHelper)) as T
         }
         throw IllegalArgumentException("Unknown class name")
     }

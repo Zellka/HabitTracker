@@ -17,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.habit.R
 import com.example.habit.data.api.ApiHelper
 import com.example.habit.data.api.RetrofitBuilder
+import com.example.habit.data.db.DatabaseBuilder
+import com.example.habit.data.db.DatabaseHelperImpl
 import com.example.habit.ui.adapter.HabitAdapter
 import com.example.habit.data.model.Habit
 import com.example.habit.data.model.HabitDone
@@ -24,9 +26,9 @@ import com.example.habit.data.model.HabitUID
 import com.example.habit.databinding.FragmentHabitsBinding
 import com.example.habit.ui.viewmodel.HabitsViewModel
 import com.example.habit.ui.viewmodel.ViewModelFactory
+import com.example.habit.utils.Network
 import com.example.habit.utils.Status
 import kotlinx.android.synthetic.main.fragment_filter.*
-import java.time.LocalDateTime
 import java.util.*
 
 class HabitsFragment : Fragment() {
@@ -55,7 +57,10 @@ class HabitsFragment : Fragment() {
         habitsViewModel =
             ViewModelProvider(
                 requireActivity(),
-                ViewModelFactory(ApiHelper(RetrofitBuilder.apiService))
+                ViewModelFactory(
+                    ApiHelper(RetrofitBuilder.apiService),
+                    DatabaseHelperImpl(DatabaseBuilder.getInstance(this.requireContext()))
+                )
             )[HabitsViewModel::class.java]
         _binding = FragmentHabitsBinding.inflate(inflater, container, false)
         return binding.root
@@ -72,6 +77,11 @@ class HabitsFragment : Fragment() {
     }
 
     private fun getHabits() {
+        if (Network.isConnected(this.requireActivity())) {
+            habitsViewModel.getHabitsFromApi()
+        } else {
+            habitsViewModel.getHabitsFromDB()
+        }
         habitsViewModel.habitsList.observe(this,
             { o -> setHabits(o) })
 
@@ -87,7 +97,6 @@ class HabitsFragment : Fragment() {
                 //binding.progressDialog.visibility = View.GONE
             }
         })
-        habitsViewModel.getAllHabits()
 
     }
 

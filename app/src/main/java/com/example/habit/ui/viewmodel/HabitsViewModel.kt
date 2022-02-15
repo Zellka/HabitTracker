@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.liveData
 import com.example.habit.data.api.ApiHelper
 import com.example.habit.data.api.ApiService
+import com.example.habit.data.db.DatabaseHelper
 import com.example.habit.data.model.Habit
 import com.example.habit.data.model.HabitDone
 import com.example.habit.data.model.HabitUID
@@ -21,12 +22,15 @@ class HabitsViewModel(
     val habitsList = MutableLiveData<List<Habit>>()
     private val filterList = MutableLiveData<List<Habit>>()
     val errorMessage = MutableLiveData<String>()
-    private var job:  Job? = null
+    private var job: Job? = null
     val loading = MutableLiveData<Boolean>()
 
-    fun getAllHabits() {
+    fun getHabitsFromApi() {
         job = CoroutineScope(Dispatchers.IO).launch {
             val response = repository.getHabits()
+            if (response.body()?.isNotEmpty() == true) {
+                repository.insertHabitsToDB(response.body()!!)
+            }
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
                     habitsList.postValue(response.body())
@@ -34,6 +38,21 @@ class HabitsViewModel(
                     loading.value = false
                 } else {
                     onError("Error : ${response.message()} ")
+                }
+            }
+        }
+    }
+
+    fun getHabitsFromDB() {
+        job = CoroutineScope(Dispatchers.IO).launch {
+            val response = repository.getHabitsFromDB()
+            withContext(Dispatchers.Main) {
+                if (response.isNotEmpty()) {
+                    habitsList.postValue(response)
+                    filterList.postValue(response)
+                    loading.value = false
+                } else {
+                    onError("Нет данных")
                 }
             }
         }
@@ -85,12 +104,12 @@ class HabitsViewModel(
     }
 }
 
-class ViewModelFactory(private val apiHelper: ApiHelper) :
+class ViewModelFactory(private val apiHelper: ApiHelper, private val dbHelper: DatabaseHelper) :
     ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(HabitsViewModel::class.java)) {
-            return HabitsViewModel(HabitRepository(apiHelper)) as T
+            return HabitsViewModel(HabitRepository(apiHelper, dbHelper)) as T
         }
         throw IllegalArgumentException("Unknown class name")
     }

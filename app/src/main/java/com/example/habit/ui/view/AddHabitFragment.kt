@@ -15,7 +15,10 @@ import androidx.navigation.fragment.findNavController
 import com.example.habit.R
 import com.example.habit.data.api.ApiHelper
 import com.example.habit.data.api.RetrofitBuilder
+import com.example.habit.data.db.DatabaseBuilder
+import com.example.habit.data.db.DatabaseHelperImpl
 import com.example.habit.data.model.Habit
+import com.example.habit.data.model.HabitPut
 import com.example.habit.ui.viewmodel.AddHabitViewModel
 import com.example.habit.databinding.FragmentAddHabitBinding
 import com.example.habit.ui.viewmodel.AddHabitViewModelFactory
@@ -48,7 +51,11 @@ class AddHabitFragment : Fragment() {
         viewModel =
             ViewModelProvider(
                 this,
-                AddHabitViewModelFactory(ApiHelper(RetrofitBuilder.apiService))
+                AddHabitViewModelFactory(
+                    ApiHelper(RetrofitBuilder.apiService), DatabaseHelperImpl(
+                        DatabaseBuilder.getInstance(this.requireContext())
+                    )
+                )
             )[AddHabitViewModel::class.java]
         _binding = FragmentAddHabitBinding.inflate(inflater, container, false)
         return binding.root
@@ -86,12 +93,13 @@ class AddHabitFragment : Fragment() {
                     override fun onColorPicked(color: Int) {
                         habitColor = color
                     }
+
                     fun onColor(color: Int, fromUser: Boolean) {}
                 })
         }
 
         binding.btnOk.setOnClickListener {
-            val habit = Habit(
+            val habit = HabitPut(
                 habitColor,
                 binding.editCount.text.toString().toInt(),
                 Calendar.getInstance().time.time,
@@ -126,7 +134,7 @@ class AddHabitFragment : Fragment() {
         }
     }
 
-    private fun putHabit(habit: Habit) {
+    private fun putHabit(habit: HabitPut) {
         viewModel.putHabit(habit)
             .observe(this.viewLifecycleOwner, Observer {
                 it?.let { resource ->

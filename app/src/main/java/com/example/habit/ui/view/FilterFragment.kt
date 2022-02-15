@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.example.habit.data.api.ApiHelper
 import com.example.habit.data.api.RetrofitBuilder
+import com.example.habit.data.db.DatabaseBuilder
+import com.example.habit.data.db.DatabaseHelperImpl
 import com.example.habit.data.model.Sort
 import com.example.habit.databinding.FragmentFilterBinding
 import com.example.habit.ui.viewmodel.HabitsViewModel
@@ -26,7 +28,10 @@ class FilterFragment : BottomSheetDialogFragment() {
         habitsViewModel =
             ViewModelProvider(
                 requireActivity(),
-                ViewModelFactory(ApiHelper(RetrofitBuilder.apiService))
+                ViewModelFactory(
+                    ApiHelper(RetrofitBuilder.apiService),
+                    DatabaseHelperImpl(DatabaseBuilder.getInstance(this.requireContext()))
+                )
             )[HabitsViewModel::class.java]
         _binding = FragmentFilterBinding.inflate(inflater, container, false)
         return binding.root
