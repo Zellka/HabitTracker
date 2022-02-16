@@ -7,10 +7,7 @@ import androidx.lifecycle.liveData
 import com.example.habit.data.api.ApiHelper
 import com.example.habit.data.api.ApiService
 import com.example.habit.data.db.DatabaseHelper
-import com.example.habit.data.model.Habit
-import com.example.habit.data.model.HabitDone
-import com.example.habit.data.model.HabitUID
-import com.example.habit.data.model.Sort
+import com.example.habit.data.model.*
 import com.example.habit.data.repository.HabitRepository
 import com.example.habit.utils.Resource
 import kotlinx.coroutines.*
@@ -52,6 +49,22 @@ class HabitsViewModel(
                 } else {
                     onError("Нет данных")
                 }
+            }
+        }
+    }
+
+    fun getDoneToast(times: Int, habitType: Int): String {
+        return if (habitType == Type.GOOD.value) {
+            when (times) {
+                0 -> DoneToast.GOOD_ENOUGH.value
+                1 -> DoneToast.GOOD_ENOUGH.value
+                else -> DoneToast.GOOD_NO_ENOUGH.value
+            }
+        } else {
+            when (times) {
+                0 -> DoneToast.BAD_ENOUGH.value
+                1 -> DoneToast.BAD_ENOUGH.value
+                else -> DoneToast.BAD_NO_ENOUGH.value
             }
         }
     }

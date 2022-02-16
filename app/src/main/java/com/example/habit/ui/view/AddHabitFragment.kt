@@ -98,12 +98,12 @@ class AddHabitFragment : Fragment() {
                     }
                 })
         }
-
+//Calendar.getInstance().time.time,
         binding.btnOk.setOnClickListener {
             val habit = HabitPut(
                 habitColor,
                 binding.editCount.text.toString().toInt(),
-                Calendar.getInstance().time.time,
+                (Date().time/1000).toInt(),
                 binding.editDescription.text.toString(),
                 arrayOf(),
                 binding.editFrequency.text.toString().toInt(),

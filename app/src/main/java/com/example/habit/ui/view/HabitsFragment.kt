@@ -91,15 +91,17 @@ class HabitsFragment : Fragment() {
     }
 
     private fun doneHabit(habit: Habit) {
-        HabitDone(Calendar.getInstance().time.time, habit.uid).let { it ->
+        HabitDone((Date().time / 1000).toInt(), habit.uid).let { it ->
             habitsViewModel.postHabitDone(it)
                 .observe(this.viewLifecycleOwner, Observer {
                     it?.let { resource ->
                         when (resource.status) {
                             Status.SUCCESS -> {
+                                val mes =
+                                    habitsViewModel.getDoneToast(habit.getDoneTime(), habit.type)
                                 Toast.makeText(
                                     this.requireContext(),
-                                    "Сделано",
+                                    mes,
                                     Toast.LENGTH_LONG
                                 ).show()
                             }
