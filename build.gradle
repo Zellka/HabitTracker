@@ -30,6 +30,7 @@ ext {
     roomVersion = '2.4.1'
     glideVersion = '4.13.0'
     colorpickerVersion = '1.1.6'
+    daggerVersion = '2.41'
 }
 
 task clean(type: Delete) {

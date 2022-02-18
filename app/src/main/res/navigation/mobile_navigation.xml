@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/nav_habits"
-        android:name="com.example.habit.ui.view.AllHabitsFragment"
+        android:name="com.example.habit.presentation.view.AllHabitsFragment"
         android:label="@string/menu_habits"
         tools:layout="@layout/fragment_all_habits">
         <action
@@ -20,7 +20,7 @@
 
     <fragment
         android:id="@+id/nav_filter"
-        android:name="com.example.habit.ui.view.FilterFragment"
+        android:name="com.example.habit.presentation.view.FilterFragment"
         android:label="@string/title_sort"
         tools:layout="@layout/fragment_filter">
         <action
@@ -30,13 +30,13 @@
 
     <fragment
         android:id="@+id/nav_about_app"
-        android:name="com.example.habit.ui.view.AboutAppFragment"
+        android:name="com.example.habit.presentation.view.AboutAppFragment"
         android:label="@string/menu_about_app"
         tools:layout="@layout/fragment_about_app" />
 
     <fragment
         android:id="@+id/nav_add_habit"
-        android:name="com.example.habit.ui.view.AddHabitFragment"
+        android:name="com.example.habit.presentation.view.AddHabitFragment"
         android:label="@string/menu_add_habit"
         tools:layout="@layout/fragment_add_habit">
         <action
