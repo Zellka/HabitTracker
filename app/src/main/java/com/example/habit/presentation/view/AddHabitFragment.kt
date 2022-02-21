@@ -3,11 +3,8 @@ package com.example.habit.presentation.view
 import android.graphics.Color
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
@@ -37,6 +34,7 @@ class AddHabitFragment : Fragment() {
     private val binding get() = _binding!!
 
     private var habit: Habit? = null
+    private var habitColor = Color.RED
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,7 +67,6 @@ class AddHabitFragment : Fragment() {
 //            }
 //        })
         var uidHabit: String? = null
-        var habitColor = Color.RED
         if (habit != null) {
             uidHabit = habit?.uid
             habitColor = habit?.color!!
@@ -82,23 +79,6 @@ class AddHabitFragment : Fragment() {
                 binding.typeGood.isChecked = true
             else
                 binding.typeBad.isChecked = true
-
-        }
-        binding.btnColor.setOnClickListener {
-            ColorPickerPopup.Builder(this.requireContext())
-                .initialColor(habitColor)
-                .enableBrightness(true)
-                .enableAlpha(true)
-                .okTitle(resources.getString(R.string.btn_choose))
-                .cancelTitle(resources.getString(R.string.btn_cancel))
-                .showIndicator(true)
-                .showValue(true)
-                .build()
-                .show(object : ColorPickerObserver() {
-                    override fun onColorPicked(color: Int) {
-                        habitColor = color
-                    }
-                })
         }
         binding.btnOk.setOnClickListener {
             val habit = HabitPut(
@@ -137,10 +117,31 @@ class AddHabitFragment : Fragment() {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_color, menu)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         if (id == R.id.home) {
             findNavController().navigate(R.id.action_addHabitFragment_to_habitsFragment)
+        }
+        if (id == R.id.action_color) {
+            ColorPickerPopup.Builder(this.requireContext())
+                .initialColor(habitColor)
+                .enableBrightness(true)
+                .enableAlpha(true)
+                .okTitle(resources.getString(R.string.btn_choose))
+                .cancelTitle(resources.getString(R.string.btn_cancel))
+                .showIndicator(true)
+                .showValue(true)
+                .build()
+                .show(object : ColorPickerObserver() {
+                    override fun onColorPicked(color: Int) {
+                        habitColor = color
+                    }
+                })
         }
         return super.onOptionsItemSelected(item)
     }

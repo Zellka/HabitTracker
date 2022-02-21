@@ -1,50 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/habit_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="5dp"
+    android:layout_marginStart="8dp"
     android:layout_marginTop="5dp"
-    android:id="@+id/habit_container"
-    android:layout_marginEnd="5dp"
-    android:layout_marginBottom="15dp">
+    android:layout_marginEnd="8dp"
+    android:layout_marginBottom="5dp"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="5dp">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/ic_habit"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/title_habit"
-        android:layout_width="0dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:maxLines="2"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:text="Пить воду"
-        android:textColor="@color/black"
-        android:textSize="18dp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/ic_habit"
-        tools:ignore="MissingConstraints" />
+        android:padding="10dp">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/description_habit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:maxLines="5"
-        android:paddingTop="15dp"
-        android:text="много воды очень в арфыларфы афлыар фыарылфа"
-        android:textColor="@color/black"
-        android:textSize="14dp"
-        app:layout_constraintStart_toStartOf="@+id/ic_habit"
-        app:layout_constraintTop_toBottomOf="@+id/title_habit"
-        tools:ignore="MissingConstraints" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ic_habit"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@color/white"
+            app:civ_border_width="2dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/title_habit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:text="Пить воду"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/ic_habit"
+            tools:ignore="MissingConstraints" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/description_habit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="5"
+            android:paddingTop="15dp"
+            android:text="много воды очень в арфыларфы афлыар фыарылфа"
+            android:textSize="16dp"
+            app:layout_constraintStart_toStartOf="@+id/ic_habit"
+            app:layout_constraintTop_toBottomOf="@+id/title_habit"
+            tools:ignore="MissingConstraints" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

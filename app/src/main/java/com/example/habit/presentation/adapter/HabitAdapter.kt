@@ -35,18 +35,18 @@ class HabitAdapter(private var listener: (Habit) -> Unit) :
         fun bind(habit: Habit) {
             binding.titleHabit.text = habit.title
             binding.descriptionHabit.text = habit.description
-            habit.color?.let { binding.icHabit.setBackgroundColor(it.toInt()) }
+            binding.icHabit.borderColor = habit.color!!
         }
     }
 
-    fun filterList(filter:String){
+    fun filterList(filter: String) {
         val filterList = habits.filter { it.title == filter }
         habits.clear()
         habits.addAll(filterList)
         notifyDataSetChanged()
     }
 
-    fun sortList(sort: Sort){
+    fun sortList(sort: Sort) {
         val filterList = when (sort) {
             Sort.DATE -> {
                 habits.sortedBy { it.date }
@@ -63,7 +63,7 @@ class HabitAdapter(private var listener: (Habit) -> Unit) :
         notifyDataSetChanged()
     }
 
-    fun noFilter(){
+    fun noFilter() {
         habits.clear()
         habits.addAll(filterHabits)
         notifyDataSetChanged()

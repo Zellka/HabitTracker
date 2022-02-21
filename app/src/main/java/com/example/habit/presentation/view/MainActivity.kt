@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         val header: View = navView.getHeaderView(0)
         val imageUser = header.findViewById<ImageView>(R.id.avatar)
         Glide.with(this)
-            .load("https://sun2.48276.userapi.com/impf/IAyEyGXLV10OvKEDqgq6mnSGM0t7fqFUlDTZrA/dHlWG8GAul8.jpg?size=960x540&quality=96&sign=822a02a84b9502c6df3e3b6238d52a17&type=album")
+            .load("https://i.pinimg.com/236x/01/73/c3/0173c32d51cef4c4d9e4bdf3276d6ed3--amsterdam-eyes.jpg")
             .into(imageUser)
     }
 }

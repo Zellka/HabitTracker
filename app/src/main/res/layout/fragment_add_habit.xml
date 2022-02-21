@@ -1,152 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
     tools:context=".presentation.view.AddHabitFragment">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/input_name"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:hint="@string/input_name"
-        android:textColorHint="@color/black"
-        app:boxStrokeColor="@color/black"
-        app:errorEnabled="true"
-        app:hintTextColor="@color/black"
-        tools:ignore="MissingConstraints">
+        android:layout_margin="12dp"
+        android:paddingBottom="20dp">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_name"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_name"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/black"
-            android:inputType="textCapSentences"
-            android:textColorHighlight="@color/black" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_marginTop="10dp"
+            android:hint="@string/input_name"
+            android:textColorHint="@color/black"
+            app:boxStrokeColor="@color/black"
+            app:errorEnabled="true"
+            app:hintTextColor="@color/black"
+            tools:ignore="MissingConstraints">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/input_description"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:hint="@string/input_description"
-        android:textColorHint="@color/black"
-        app:boxStrokeColor="@color/black"
-        app:errorEnabled="true"
-        app:hintTextColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@+id/input_name"
-        tools:ignore="MissingConstraints">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/black"
+                android:inputType="textCapSentences"
+                android:textColorHighlight="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_description"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_description"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/black"
-            android:inputType="textCapSentences"
-            android:textColorHighlight="@color/black" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:hint="@string/input_description"
+            android:textColorHint="@color/black"
+            app:boxStrokeColor="@color/black"
+            app:errorEnabled="true"
+            app:hintTextColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@+id/input_name"
+            tools:ignore="MissingConstraints">
 
-    <androidx.appcompat.widget.AppCompatSpinner
-        android:id="@+id/menu_priority"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:entries="@array/priorities"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/input_description"
-        tools:ignore="MissingConstraints" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/black"
+                android:inputType="textCapSentences"
+                android:textColorHighlight="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <RadioGroup
-        android:id="@+id/type"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/menu_priority">
-
-        <RadioButton
-            android:id="@+id/type_good"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/type_good" />
-
-        <RadioButton
-            android:id="@+id/type_bad"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/type_bad" />
-
-    </RadioGroup>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/input_count"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:hint="@string/input_count"
-        android:textColorHint="@color/black"
-        app:boxStrokeColor="@color/black"
-        app:errorEnabled="true"
-        app:hintTextColor="@color/black"
-        app:layout_constraintEnd_toStartOf="@+id/input_frequency"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/type"
-        tools:ignore="MissingConstraints">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_count"
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/menu_priority"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/black"
-            android:inputType="textCapSentences"
-            android:textColorHighlight="@color/black" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:entries="@array/priorities"
+            android:paddingBottom="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/input_description"
+            tools:ignore="MissingConstraints" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/input_frequency"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:hint="@string/input_frequency"
-        android:textColorHint="@color/black"
-        app:boxStrokeColor="@color/black"
-        app:errorEnabled="true"
-        app:hintTextColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/input_count"
-        app:layout_constraintTop_toBottomOf="@+id/type"
-        tools:ignore="MissingConstraints">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_frequency"
+        <RadioGroup
+            android:id="@+id/type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/black"
-            android:inputType="textCapSentences"
-            android:textColorHighlight="@color/black" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:orientation="horizontal"
+            android:paddingTop="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/menu_priority">
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_color"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/btn_add_color"
-        app:layout_constraintTop_toBottomOf="@+id/input_frequency" />
+            <RadioButton
+                android:id="@+id/type_good"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/type_good" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_ok"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/btn_ok"
-        app:layout_constraintTop_toBottomOf="@+id/btn_color" />
+            <RadioButton
+                android:id="@+id/type_bad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/type_bad" />
 
+        </RadioGroup>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_count"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="5dp"
+            android:hint="@string/input_count"
+            android:textColorHint="@color/black"
+            app:boxStrokeColor="@color/black"
+            app:errorEnabled="true"
+            app:hintTextColor="@color/black"
+            app:layout_constraintEnd_toStartOf="@+id/input_frequency"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/type"
+            tools:ignore="MissingConstraints">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_count"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/black"
+                android:inputType="textCapSentences"
+                android:textColorHighlight="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_frequency"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:hint="@string/input_frequency"
+            android:textColorHint="@color/black"
+            app:boxStrokeColor="@color/black"
+            app:errorEnabled="true"
+            app:hintTextColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/input_count"
+            app:layout_constraintTop_toBottomOf="@+id/type"
+            tools:ignore="MissingConstraints">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_frequency"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/black"
+                android:inputType="textCapSentences"
+                android:textColorHighlight="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_ok"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/btn_round"
+            android:text="@string/btn_ok"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toBottomOf="@+id/input_frequency" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
