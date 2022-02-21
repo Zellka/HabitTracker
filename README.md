@@ -1,4 +1,4 @@
-# HabitTracker
+# Habit
 ![](https://github.com/Zellka/HabitTracker/blob/master/image/ic_app.png)
 
 ## Функции
