@@ -49,7 +49,7 @@ class AddHabitFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        viewModel = ViewModelProvider(requireActivity(), viewModelFactory).get(
+        viewModel = ViewModelProvider(this, viewModelFactory).get(
             AddHabitViewModel::class.java
         )
         _binding = FragmentAddHabitBinding.inflate(inflater, container, false)
@@ -58,14 +58,14 @@ class AddHabitFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        viewModel.isError.observe(this, {
-//            if (it) {
-//                Toast.makeText(this.requireContext(), "Ошибка", Toast.LENGTH_SHORT).show()
-//            } else {
-//                Toast.makeText(this.requireContext(), "Успех", Toast.LENGTH_LONG).show()
-//                findNavController().navigate(R.id.action_addHabitFragment_to_habitsFragment)
-//            }
-//        })
+        viewModel.isError.observe(viewLifecycleOwner, {
+            if (it) {
+                Toast.makeText(this.requireContext(), "Ошибка", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this.requireContext(), "Успех", Toast.LENGTH_LONG).show()
+                findNavController().navigate(R.id.action_addHabitFragment_to_habitsFragment)
+            }
+        })
         var uidHabit: String? = null
         if (habit != null) {
             uidHabit = habit?.uid
@@ -94,7 +94,6 @@ class AddHabitFragment : Fragment() {
                 uidHabit
             )
             viewModel.addEditHabit(habit)
-            findNavController().navigate(R.id.action_addHabitFragment_to_habitsFragment)
         }
     }
 
