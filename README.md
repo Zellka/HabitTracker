@@ -18,3 +18,9 @@
 * Room [Docs](https://developer.android.google.cn/reference/androidx/room/Room)
 * Glide [Docs](https://github.com/bumptech/glide)
 * View Binding [Docs](https://developer.android.com/topic/libraries/view-binding)
+* Kaspresso [Docs](https://github.com/KasperskyLab/Kaspresso)
+
+## Тестирование
+* UI тест для экрана добавления/редактирования привычки (AddHabitFragment)
+* Unit тесты модуля domain
+
